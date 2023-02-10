@@ -3,14 +3,14 @@ const router = express.Router();
 const employee = require('../controllers/Econtroller');
 const management = require('../controllers/managemnetcontroller')
 const sceduleMeeting = require('../controllers/Smcontroller')
-const middleware = require('../middleware/auth')
+const {authentication,authorisation}= require('../middleware/auth')
 
 
 router.post("/management",management.CreateManagement)
 router.post("/Mlogin",management.Login)
 // middleware.authorisation,middleware.authentication,
-router.post("/Eregister",middleware.authorisation,middleware.authentication,employee.Createemployee)
-
+// router.post("/Eregister",employee.Createemployee)
+router.post("/Eregister",authentication,authorisation,employee.Createemployee)
 router.get("/getemployee",employee.getemployee)
 // router.post("/empolyee",singin.singin)
 

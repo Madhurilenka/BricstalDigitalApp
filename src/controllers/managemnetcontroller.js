@@ -1,5 +1,7 @@
 const managementModel = require("../Models/managementModel");
 const jwt = require('jsonwebtoken')
+const {isValid}= require('../validator/validator')
+
 
 const CreateManagement = async (req,res)=>{
     try {
@@ -8,27 +10,27 @@ const CreateManagement = async (req,res)=>{
         if (Object.keys(req.body).length == 0) {
             return res.status(400).send({ status: false, msg: "You have to put details for create a employee" })
         }
-        if (!(name)) {
+        if (!isValid(name)) {
             return res.status(400).send({ status: false, msg: "Name is mendatory for Create a employee" })
         }
         if (!(/^[a-zA-Z]{2,}(?: [a-zA-Z]+){0,2}$/).test(name)) {
             return res.status(400).send({ status: false, msg: "Please enter a valid Name" })
         }
-        if (!(phone)) {
+        if (!isValid(phone)) {
             return res.status(400).send({ status: false, msg: "Phone number is mendatory for Create a employee" })
         }
         
         if (!(/^[\s]*[6-9]\d{9}[\s]*$/).test(phone)) {
             return res.status(400).send({ status: false, msg: "Please Enter valid phone Number" })
         }
-        if (!(email)) {
+        if (!isValid(email)) {
             return res.status(400).send({ status: false, msg: "Email is mendatory for Create a employee" })
         }
         if (!(/^[a-z0-9_]{1,}@[a-z]{3,10}[.]{1}[a-z]{2,4}$/).test(email)) {
             return res.status(400).send({ status: false, msg: "Please Enter valid Email" })
         }
 
-        if (!password) {
+        if (!isValid(password)) {
             return res.status(400).send({ status: false, msg: "Please enter Password for registartion" })
         }
         if (!(/^[\s]*[0-9a-zA-Z@#$%^&*]{8,15}[\s]*$/).test(password)) {
